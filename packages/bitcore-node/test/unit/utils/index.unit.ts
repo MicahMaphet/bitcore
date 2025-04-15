@@ -239,4 +239,29 @@ describe('Utils', function() {
       expect(result).deep.equal(expectedResult);
     });
   });
+  describe('uniq', function() {
+    it('should remove redundant values in numbers array', function() {
+      const array = [3, 1, 4, 1, 5];
+      const result = utils.uniq(array);
+      const expectedResult = [3, 1, 4, 5];
+      expect(result).deep.equal(expectedResult);
+    });
+
+    it('should handle first and last element redundancy', function() {
+      const array = [1, 2, 3, 1];
+      const result = utils.uniq(array);
+      const expectedResult = [1, 2, 3];
+      expect(result).deep.equal(expectedResult);
+    });
+
+    it('should handle null, undefined, NaN, objects and strings', function() {
+      const array = 
+      [NaN, NaN, new ObjectID('6f0d45b6dfeafa40f958afbf'), undefined, 
+       'bitcoin', null, 'bitcoin', undefined, 'txs', null];
+      const result = utils.uniq(array);
+      const expectedResult = 
+          [NaN, new ObjectID('6f0d45b6dfeafa40f958afbf'), undefined, 'bitcoin', null, 'txs'];
+      expect(result).deep.equal(expectedResult);
+    });
+  });
 });

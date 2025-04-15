@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import logger, { timestamp } from '../../logger';
 import { ITransaction } from '../../models/baseTransaction';
 import { BitcoinBlockStorage } from '../../models/block';
@@ -7,6 +6,7 @@ import { TransactionStorage } from '../../models/transaction';
 import { BitcoinP2PWorker } from '../../modules/bitcoin/p2p';
 import { ChainStateProvider } from '../../providers/chain-state';
 import { ErrorType, IVerificationPeer } from '../../services/verification';
+import { uniq } from '../../utils';
 
 export class VerificationPeer extends BitcoinP2PWorker implements IVerificationPeer {
   prevBlockNum = 0;
@@ -305,7 +305,7 @@ export class VerificationPeer extends BitcoinP2PWorker implements IVerificationP
       }
     }
 
-    const mintHeights = _.uniq(coinsForTx.map(c => c.mintHeight));
+    const mintHeights = uniq(coinsForTx.map(c => c.mintHeight));
     if (mintHeights.length > 1) {
       success = false;
       const error = { model: 'coin', err: true, type: 'COIN_HEIGHT_MISMATCH', payload: { blockNum } };
