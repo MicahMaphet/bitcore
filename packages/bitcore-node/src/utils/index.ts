@@ -3,8 +3,9 @@ import * as convert from './convert';
 import * as jsonStream from './jsonStream';
 import * as parseArgv from './parseArgv';
 import * as stats from './stats';
+import * as mergeWith from './mergeWith';
 
-export { auth, convert, jsonStream, parseArgv, stats };
+export { mergeWith, auth, convert, jsonStream, parseArgv, stats };
 
 export function overlaps(a?: Array<any>, b?: Array<any>): boolean {
   return !!a?.some((item) => b?.includes(item));
