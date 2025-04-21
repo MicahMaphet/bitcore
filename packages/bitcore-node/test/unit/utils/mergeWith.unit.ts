@@ -59,7 +59,24 @@ describe('mergeWith', function() {
     };
     expect(result).deep.equal(expectedResult);
   });
-  
+  it('should merge nested arrays where destination property is not defined', function() {
+    const customizer = (objValue, srcValue) =>
+      (Array.isArray(objValue)) ? objValue.concat(srcValue) : undefined;
+    var object1 = {
+      'fruits': ['cherry', 'lemon'],
+      'vegetables': ['beet']
+    };
+    var object2 = {
+      'fruits': ['strawberry']
+    };
+
+    const result = mergeWith(object1, object2, customizer);
+    const expectedResult = {
+      'fruits': ['cherry', 'lemon', 'strawberry'], 
+      'vegetables': ['beet']
+    };
+    expect(result).deep.equal(expectedResult);
+  });
   it('should merge objects realistic to a config', function() {
   const mergeCopyArray = (objVal, srcVal) => (objVal instanceof Array ? srcVal : undefined);
     let config = {

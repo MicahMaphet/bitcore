@@ -23,11 +23,14 @@ source: TSource,
 customizer: MergeCustomizer
 ): TObject & TSource {
   for (const key in source) {
-    const objProp = (object) ? (object as any)[key] : undefined;
+    const objProp = (object !== undefined) ? (object as any)[key] : undefined;
     const srcProp = source[key];
+    const customizerApplied = customizer(objProp, srcProp, key, object, source);
     let result;
-    if (!objProp) {
-      result = customizer(objProp, srcProp, key, objProp, source) || srcProp;
+    if (customizerApplied !== undefined) {
+      result = customizerApplied;
+    } else if (objProp === undefined) {
+      result = srcProp;
     } else if (Array.isArray(srcProp)) {
       result = objProp.concat(srcProp);
     } else if (srcProp instanceof Object) {
