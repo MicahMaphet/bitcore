@@ -36,7 +36,7 @@ customizer: MergeCustomizer
     } else if (srcProp instanceof Object) {
       result = mergeWith(objProp, srcProp, customizer);
     } else {
-      result = customizer(objProp, srcProp, key, object, source) || srcProp;
+      result = customizerApplied;
     }
     (object as any)[key] = result;
   }
