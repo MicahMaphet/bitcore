@@ -67,7 +67,7 @@ export class ApiService {
   }
 }
 
-// TOOO: choose a place in the config for the API timeout and include it here
+// TODO: choose a place in the config for the API timeout and include it here
 export const Api = new ApiService({
   port: config.port
 });
