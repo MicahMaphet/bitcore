@@ -28,6 +28,7 @@ import CircleSvg from '../assets/images/circle.svg';
 import {useNavigate, createSearchParams} from 'react-router-dom';
 import styled, { useTheme } from 'styled-components';
 import {Slate, SlateDark} from '../assets/styles/colors';
+import CopyText from './copy-text';
 
 const TextElipsis = styled(ScriptText)`
   overflow: hidden;
@@ -58,7 +59,7 @@ const TxAddressLink = styled.span`
   }
 `
 
-const BorderBoxLabel: FC<{children: ReactNode, label: string}> = ({children, label}) => {
+const BorderBoxLabel: FC<{children: ReactNode, label: string, copyText?: boolean}> = ({children, label, copyText}) => {
   const theme = useTheme();
   const modifiedChildren = typeof children === 'object' 
     ? Children.map(children as JSX.Element, (child: JSX.Element) => {
@@ -78,6 +79,7 @@ const BorderBoxLabel: FC<{children: ReactNode, label: string}> = ({children, lab
     }}>
       <legend style={{margin: '-0.2rem 0.1rem'}}>{label}</legend>
       {modifiedChildren}
+      {copyText && <CopyText text={`${typeof children === 'object' ? children?.valueOf() : children}`} />}
     </fieldset>
   );
 }
@@ -226,7 +228,7 @@ const TransactionDetails: FC<TransactionDetailsProps> = ({
                             <>
 
                               <TileDescription padding='0 1rem 0 0' value>
-                                <BorderBoxLabel label='Tx ID'>
+                                <BorderBoxLabel label='Tx ID' copyText>
                                   <TextElipsis>
                                     <SpanLink
                                       onClick={() =>
@@ -255,8 +257,8 @@ const TransactionDetails: FC<TransactionDetailsProps> = ({
 
                                 {item.script && (
                                   <>
-                                    <BorderBoxLabel label='Script Hex'>{item.script}</BorderBoxLabel>
-                                    <BorderBoxLabel label='Script ASM'>{new lib.Script(item.script).toASM()}</BorderBoxLabel>
+                                    <BorderBoxLabel label='Script Hex' copyText>{item.script}</BorderBoxLabel>
+                                    <BorderBoxLabel label='Script ASM' copyText>{new lib.Script(item.script).toASM()}</BorderBoxLabel>
                                   </>
                                 )}
                               </TileDescription>
@@ -315,7 +317,7 @@ const TransactionDetails: FC<TransactionDetailsProps> = ({
                     <>
                       <TileDescription padding='0 1rem 0 0' value>
                         {vo.spentTxid && (
-                          <BorderBoxLabel label='Spent By'>
+                          <BorderBoxLabel label='Spent By' copyText>
                             <TextElipsis>
                               <SpanLink onClick={() => goToTx(vo.spentTxid, transaction.txid, i)}>
                                 {vo.spentTxid}
@@ -326,8 +328,8 @@ const TransactionDetails: FC<TransactionDetailsProps> = ({
                         {isOpReturn(vo) && <ScriptText>{getOpReturnText(vo)}</ScriptText>}
                         {vo.script && (
                           <>
-                            <BorderBoxLabel label='Script Hex'>{new lib.Script(vo.script).toHex()}</BorderBoxLabel>
-                            <BorderBoxLabel label='Script ASM'>{new lib.Script(vo.script).toASM()}</BorderBoxLabel>
+                            <BorderBoxLabel label='Script Hex' copyText>{new lib.Script(vo.script).toHex()}</BorderBoxLabel>
+                            <BorderBoxLabel label='Script ASM' copyText>{new lib.Script(vo.script).toASM()}</BorderBoxLabel>
                           </>
                         )}
                       </TileDescription>
