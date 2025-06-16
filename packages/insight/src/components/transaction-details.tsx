@@ -257,8 +257,8 @@ const TransactionDetails: FC<TransactionDetailsProps> = ({
 
                                 {item.script && (
                                   <>
-                                    <BorderBoxLabel label='Script Hex' copyText>{item.script}</BorderBoxLabel>
-                                    <BorderBoxLabel label='Script ASM' copyText>{new lib.Script(item.script).toASM()}</BorderBoxLabel>
+                                    <BorderBoxLabel label='Script Hex'>{item.script}</BorderBoxLabel>
+                                    <BorderBoxLabel label='Script ASM'>{new lib.Script(item.script).toASM()}</BorderBoxLabel>
                                   </>
                                 )}
                               </TileDescription>
@@ -317,7 +317,7 @@ const TransactionDetails: FC<TransactionDetailsProps> = ({
                     <>
                       <TileDescription padding='0 1rem 0 0' value>
                         {vo.spentTxid && (
-                          <BorderBoxLabel label='Spent By' copyText>
+                          <BorderBoxLabel label='Spent By'>
                             <TextElipsis>
                               <SpanLink onClick={() => goToTx(vo.spentTxid, transaction.txid, i)}>
                                 {vo.spentTxid}
@@ -328,8 +328,8 @@ const TransactionDetails: FC<TransactionDetailsProps> = ({
                         {isOpReturn(vo) && <ScriptText>{getOpReturnText(vo)}</ScriptText>}
                         {vo.script && (
                           <>
-                            <BorderBoxLabel label='Script Hex' copyText>{new lib.Script(vo.script).toHex()}</BorderBoxLabel>
-                            <BorderBoxLabel label='Script ASM' copyText>{new lib.Script(vo.script).toASM()}</BorderBoxLabel>
+                            <BorderBoxLabel label='Script Hex'>{new lib.Script(vo.script).toHex()}</BorderBoxLabel>
+                            <BorderBoxLabel label='Script ASM'>{new lib.Script(vo.script).toASM()}</BorderBoxLabel>
                           </>
                         )}
                       </TileDescription>
