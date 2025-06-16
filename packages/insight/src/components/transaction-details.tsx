@@ -210,7 +210,7 @@ const TransactionDetails: FC<TransactionDetailsProps> = ({
                             />
                           </ArrowDiv>
                           {getAddress(vi) !== 'Unparsed address' ? (
-                            <TxAddressLink onClick={() => goToAddress(getAddress(vi))}>
+                            <TxAddressLink onClick={() => goToAddress(getAddress(vi))} style={{wordBreak: showDetails ? 'break-all' : 'unset'}}>
                               {getAddress(vi)}
                             </TxAddressLink>
                           ) : (
@@ -289,7 +289,7 @@ const TransactionDetails: FC<TransactionDetailsProps> = ({
                   ...(showDetails && {borderBottom: '2px solid', paddingBottom: '0.25rem'})
                 }}>
                   {getAddress(vo) !== 'Unparsed address' ? (
-                    <TxAddressLink onClick={() => goToAddress(getAddress(vo))}>
+                    <TxAddressLink onClick={() => goToAddress(getAddress(vo))} style={{wordBreak: showDetails ? 'break-all' : 'unset'}}>
                       {getAddress(vo)}
                     </TxAddressLink>
                   ) : (
